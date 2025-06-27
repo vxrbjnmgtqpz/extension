@@ -1,0 +1,36 @@
+{
+  "name": "workstation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "proxy-launcher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "vite": "vite",
+    "proxy-launcher": "electron proxy-launcher.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "electron": "^32.2.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.1",
+    "rehype-highlight": "^7.0.2",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1",
+    "highlight.js": "^11.11.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "nodemon": "^3.1.4",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4"
+  }
+}

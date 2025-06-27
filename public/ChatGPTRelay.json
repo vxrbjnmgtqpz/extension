@@ -1,0 +1,239 @@
+{
+  "messages": [
+    {
+      "timestamp": "2025-05-27T23:04:27.972Z",
+      "sender": "User",
+      "message": "sdfghj"
+    },
+    {
+      "timestamp": "2025-05-27T23:04:30.353Z",
+      "sender": "Assistant",
+      "message": "z"
+    },
+    {
+      "timestamp": "2025-05-27T23:04:30.374Z",
+      "sender": "Assistant",
+      "message": "zgf"
+    },
+    {
+      "timestamp": "2025-05-27T23:04:30.354Z",
+      "sender": "Assistant",
+      "message": "zg"
+    },
+    {
+      "timestamp": "2025-05-27T23:04:30.381Z",
+      "sender": "Assistant",
+      "message": "zgfs"
+    },
+    {
+      "timestamp": "2025-05-27T23:04:49.530Z",
+      "sender": "Assistant",
+      "message": "This is probably why your message relay system works \\- the relay watcher is the bridge between the different files. Without it, messages wouldn't automatically flow from the proxy files to the main relay files that your React app reads.\n\nThank you for catching that! That would have broken a core part of your system. The relay watcher is definitely NOT dead weight - it's critical infrastructure."
+    },
+    {
+      "timestamp": "2025-05-28T06:40:06.909Z",
+      "sender": "Assistant",
+      "message": "Calls the correct backend endpoint that writes to public relay files"
+    },
+    {
+      "timestamp": "2025-05-28T06:43:22.395Z",
+      "sender": "Assistant",
+      "message": "They should work identically to how ChatGPT works in the original combined interface!"
+    },
+    {
+      "timestamp": "2025-05-28T06:50:36.436Z",
+      "sender": "Assistant",
+      "message": "They should work identically to how ChatGPT works in the original combined interface!"
+    },
+    {
+      "timestamp": "2025-05-28T06:54:47.643Z",
+      "sender": "User",
+      "message": "gwtrfdc"
+    },
+    {
+      "timestamp": "2025-05-28T06:58:23.577Z",
+      "sender": "Assistant",
+      "message": "👤 User Proxy Window"
+    },
+    {
+      "timestamp": "2024-01-01T00:00:00.000Z",
+      "sender": "Assistant",
+      "message": "Test connection from proxy window"
+    },
+    {
+      "timestamp": "2024-05-28T03:15:00.000Z",
+      "sender": "System",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T07:16:38.316Z",
+      "sender": "System",
+      "message": "Connection test from Electron window"
+    },
+    {
+      "timestamp": "2025-05-28T10:40:30.185Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:40:34.407Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:08.293Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:09.130Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:09.964Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:14.916Z",
+      "sender": "Assistant",
+      "message": "x"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:15.244Z",
+      "sender": "Assistant",
+      "message": "xy"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:16.011Z",
+      "sender": "Assistant",
+      "message": "xyz"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:19.196Z",
+      "sender": "Assistant",
+      "message": "xyz\n"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:21.710Z",
+      "sender": "Assistant",
+      "message": "xyz\n"
+    },
+    {
+      "timestamp": "2025-05-28T10:46:12.406Z",
+      "sender": "User",
+      "message": "hey hey ye"
+    },
+    {
+      "timestamp": "2025-05-28T10:49:35.840Z",
+      "sender": "User",
+      "message": "✅ Always-on-top window - alwaysOnTop: true ✅ Top-level window with floating behavior - setAlwaysOnTop(true, 'floating', 1) ✅ Z-order priority: topmost - Highest priority level in Electron ✅ Individual proxy windows - Each HTML file becomes a separate window ✅ Smart positioning - 2x2 grid layout automatically calculated ✅ Window controls - Resizable, minimizable, with title bars"
+    },
+    {
+      "timestamp": "2025-05-28T10:49:41.148Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-05-28T10:50:02.916Z",
+      "sender": "User",
+      "message": "✅ Always-on-top window - alwaysOnTop: true ✅ Top-level window with floating behavior - setAlwaysOnTop(true, 'floating', 1) ✅ Z-order priority: topmost - Highest priority level in Electron ✅ Individual proxy windows - Each HTML file becomes a separate window ✅ Smart positioning - 2x2 grid layout automatically calculated ✅ Window controls - Resizable, minimizable, with title bars"
+    },
+    {
+      "timestamp": "2025-05-28T10:52:05.571Z",
+      "sender": "User",
+      "message": "✅ Always-on-top window - alwaysOnTop: true ✅ Top-level window with floating behavior - setAlwaysOnTop(true, 'floating', 1) ✅ Z-order priority: topmost - Highest priority level in Electron ✅ Individual proxy windows - Each HTML file becomes a separate window ✅ Smart positioning - 2x2 grid layout automatically calculated ✅ Window controls - Resizable, minimizable, with title bars"
+    },
+    {
+      "timestamp": "2025-05-28T11:16:57.196Z",
+      "sender": "User",
+      "message": "I UNDERSTAND! You're saying NONE of the user messages have colored borders, not just the recent ones. The issue is that the user messages in the ALL tab don't have the targetAgent field properly set. Let me check how user messages are being fetched and processed:"
+    },
+    {
+      "timestamp": "2025-05-28T11:19:51.013Z",
+      "sender": "User",
+      "message": "I UNDERSTAND! You're saying NONE of the user messages have colored borders, not just the recent ones. The issue is that the user messages in the ALL tab don't have the targetAgent field properly set. Let me check how user messages are being fetched and processed:"
+    },
+    {
+      "timestamp": "2025-01-29T08:00:00.000Z",
+      "sender": "User",
+      "message": "Test forwarded message to ChatGPT"
+    },
+    {
+      "timestamp": "2025-05-28T11:54:05.273Z",
+      "sender": "Assistant",
+      "message": "a"
+    },
+    {
+      "timestamp": "2025-01-29T08:15:00.000Z",
+      "sender": "User",
+      "message": "Test direct message from user input"
+    },
+    {
+      "timestamp": "2025-05-28T12:01:16.984Z",
+      "sender": "Assistant",
+      "message": "forwarded"
+    },
+    {
+      "timestamp": "2025-05-28T12:01:26.363Z",
+      "sender": "User",
+      "message": "forwarded"
+    },
+    {
+      "timestamp": "2025-01-29T08:30:00.000Z",
+      "sender": "User",
+      "message": "Test message to see if FWD box updates in proxy window"
+    },
+    {
+      "timestamp": "2025-01-29T08:40:00.000Z",
+      "sender": "User",
+      "message": "This should appear in the FWD to ChatGPT box"
+    },
+    {
+      "timestamp": "2025-01-29T08:45:00.000Z",
+      "sender": "User",
+      "message": "Testing FWD to ChatGPT with fixed workflow"
+    },
+    {
+      "timestamp": "2025-05-28T12:28:44.192Z",
+      "sender": "User",
+      "message": "fuck"
+    },
+    {
+      "timestamp": "2025-05-28T13:03:02.051Z",
+      "sender": "User",
+      "message": "**👤 User** (08:58 AM):\n**👤 User** (08:24 AM):\ncheck"
+    },
+    {
+      "timestamp": "2025-05-28T13:03:08.984Z",
+      "sender": "Assistant",
+      "message": "**👤 User** (08:58 AM):\n**👤 User** (08:24 AM):\ncheck"
+    },
+    {
+      "timestamp": "2025-05-28T13:09:16.235Z",
+      "sender": "User",
+      "message": "forwarded"
+    },
+    {
+      "timestamp": "2025-05-28T13:20:33.023Z",
+      "sender": "User",
+      "message": "VGKHJAKSGR"
+    },
+    {
+      "timestamp": "2025-05-28T13:22:03.119Z",
+      "sender": "Assistant",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-05-28T13:22:15.827Z",
+      "sender": "User",
+      "message": "chbhjsdvsfd"
+    },
+    {
+      "timestamp": "2025-05-28T13:32:37.043Z",
+      "sender": "Assistant",
+      "message": "🤖: forwarded"
+    }
+  ]
+}

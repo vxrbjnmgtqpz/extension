@@ -1,0 +1,104 @@
+{
+  "messages": [
+    {
+      "timestamp": "2025-05-28T06:44:47.064Z",
+      "sender": "Assistant",
+      "message": "They should work identically to how ChatGPT works in the original combined interface!"
+    },
+    {
+      "timestamp": "2024-01-01T00:00:00.000Z",
+      "sender": "Assistant",
+      "message": "Test message for Copilot"
+    },
+    {
+      "timestamp": "2025-05-28T06:51:07.474Z",
+      "sender": "Assistant",
+      "message": "They should work identically to how ChatGPT works in the original combined interface!"
+    },
+    {
+      "timestamp": "2025-05-28T06:51:21.895Z",
+      "sender": "User",
+      "message": "They should work identically to how ChatGPT works in the original combined interface!"
+    },
+    {
+      "timestamp": "2025-05-28T10:40:47.416Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:40:52.415Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:40:54.891Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:40:56.905Z",
+      "sender": "Assistant",
+      "message": "Connection test"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:27.984Z",
+      "sender": "Assistant",
+      "message": "xyz\n"
+    },
+    {
+      "timestamp": "2025-05-28T10:41:35.848Z",
+      "sender": "User",
+      "message": "✅ Always-on-top window - alwaysOnTop: true\n✅ Top-level window with floating behavior - setAlwaysOnTop(true, 'floating', 1)\n✅ Z-order priority: topmost - Highest priority level in Electron\n✅ Individual proxy windows - Each HTML file becomes a separate window\n✅ Smart positioning - 2x2 grid layout automatically calculated\n✅ Window controls - Resizable, minimizable, with title bars"
+    },
+    {
+      "timestamp": "2025-05-28T10:46:04.802Z",
+      "sender": "User",
+      "message": "hey hey"
+    },
+    {
+      "timestamp": "2025-05-28T10:48:39.890Z",
+      "sender": "User",
+      "message": "✅ Always-on-top window - alwaysOnTop: true ✅ Top-level window with floating behavior - setAlwaysOnTop(true, 'floating', 1) ✅ Z-order priority: topmost - Highest priority level in Electron ✅ Individual proxy windows - Each HTML file becomes a separate window ✅ Smart positioning - 2x2 grid layout automatically calculated ✅ Window controls - Resizable, minimizable, with title bars"
+    },
+    {
+      "timestamp": "2025-05-28T10:52:24.095Z",
+      "sender": "User",
+      "message": "✅ Always-on-top window - alwaysOnTop: true ✅ Top-level window with floating behavior - setAlwaysOnTop(true, 'floating', 1) ✅ Z-order priority: topmost - Highest priority level in Electron ✅ Individual proxy windows - Each HTML file becomes a separate window ✅ Smart positioning - 2x2 grid layout automatically calculated ✅ Window controls - Resizable, minimizable, with title bars"
+    },
+    {
+      "timestamp": "2025-05-28T11:16:40.376Z",
+      "sender": "User",
+      "message": "CHECK"
+    },
+    {
+      "timestamp": "2025-05-28T11:29:10.233Z",
+      "sender": "User",
+      "message": "derp"
+    },
+    {
+      "timestamp": "2025-01-29T08:10:00.000Z",
+      "sender": "User",
+      "message": "Test FWD to Copilot with new layout"
+    },
+    {
+      "timestamp": "2025-05-28T11:56:50.682Z",
+      "sender": "Assistant",
+      "message": "Test FWD to Copilot with new layout"
+    },
+    {
+      "timestamp": "2025-01-29T08:25:00.000Z",
+      "sender": "User",
+      "message": "Final test - forwarding to Copilot from Cursor"
+    },
+    {
+      "timestamp": "2025-05-28T12:01:18.606Z",
+      "sender": "Assistant",
+      "message": "forwarded"
+    },
+    {
+      "timestamp": "2025-05-28T13:32:44.571Z",
+      "sender": "Assistant",
+      "message": "🤖: forwarded"
+    }
+  ]
+}

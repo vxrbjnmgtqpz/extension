@@ -1,0 +1,19 @@
+
+
+# Title Card Input Conventions (2025-05-21 14:51:29)
+
+_**User**_
+
+The section title cards that are spawnable, first of all center the title letters
+I need to add the following conventions, I need capitalizations to not be important:
+
+If user starts typing "A" Assume Intro Verse Chorus etc right down the line, where abab would = intro verse intro verse 
+
+If user starrts entering "ivc" assume Intro, Verse, Chorus
+and that type of convention 
+
+---
+
+
+_**Assistant**_
+CHECK
