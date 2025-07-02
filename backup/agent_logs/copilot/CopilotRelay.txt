@@ -1,0 +1,31 @@
+# Copilot Relay
+
+---
+_**User**_
+2024-03-26T10:00:30Z
+
+Can you suggest a unit test for this API endpoint?
+
+---
+_**Assistant**_
+2024-03-26T10:00:50Z
+
+I'll help you write a comprehensive test suite. For an API endpoint, we should test:
+- Success cases
+- Error handling
+- Edge cases
+- Input validation
+
+What's the endpoint's expected behavior?
+
+---
+_**User**_
+2024-03-26T10:01:45Z
+
+It's a POST endpoint that processes user data.
+
+---
+_**Assistant**_
+2024-03-26T10:02:15Z
+
+Here's a Jest test template that covers the main scenarios for a POST endpoint:

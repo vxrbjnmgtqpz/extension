@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkStation - Relay System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/oboe@2.1.7/dist/oboe-browser.min.js"></script>
+</head>
+<body class="bg-gray-800 text-white">
+  <div id="app" class="relative w-full h-screen">
+    <!-- Chat area -->
+    <div class="w-full h-full overflow-auto pb-32 bg-gray-800">
+      <div id="chat-container" class="p-4"></div>
+    </div>
+
+    <!-- Fixed bottom section -->
+    <div class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700">
+      <!-- Message input -->
+      <div class="w-full bg-gray-900 p-4">
+        <div class="flex gap-3 items-end">
+          <textarea
+            id="message-input"
+            class="flex-1 border border-gray-600 rounded-lg p-3 text-gray-100 bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none placeholder-gray-400"
+            placeholder="Type a message..."
+            style="height: 40px;"
+          ></textarea>
+          <button
+            id="send-button"
+            class="bg-blue-600 text-white rounded-lg hover:bg-blue-700 px-4 py-2"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+      
+      <!-- Agent tabs -->
+      <div class="p-2">
+        <div id="agent-tabs" class="flex w-full gap-1 mb-2">
+          <button class="agent-tab flex-1 px-2 py-2 text-xs font-medium rounded bg-gray-100 text-gray-700" data-agent="chatgpt">🧠 ChatGPT</button>
+          <button class="agent-tab flex-1 px-2 py-2 text-xs font-medium rounded bg-gray-100 text-gray-700" data-agent="cursor">🤖 Cursor</button>
+          <button class="agent-tab flex-1 px-2 py-2 text-xs font-medium rounded bg-gray-100 text-gray-700" data-agent="copilot">🛠️ Copilot</button>
+          <button class="agent-tab flex-1 px-2 py-2 text-xs font-medium rounded bg-gray-100 text-gray-700" data-agent="all">🌐 All</button>
+        </div>
+        <!-- Debug controls -->
+        <div class="flex gap-1">
+          <button id="debug-reload" class="px-2 py-1 text-xs bg-yellow-600 text-white rounded hover:bg-yellow-700">🔄 Reload Messages</button>
+          <button id="debug-info" class="px-2 py-1 text-xs bg-green-600 text-white rounded hover:bg-green-700">🔍 Debug Info</button>
+          <button id="scroll-bottom" class="px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700">📜 Scroll Bottom</button>
+          <button id="clear-storage" class="px-2 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700">🗑️ Clear Storage</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

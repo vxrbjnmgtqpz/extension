@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Proxy Window</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          sans-serif;
+        background-color: #1e1e1e;
+        color: #e2e8f0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .header {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #cbd5e1;
+        margin-bottom: 10px;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 20px;
+        flex: 1;
+      }
+
+      .agent-tile {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .agent-tile .text-area {
+        min-height: 120px;
+        max-height: 300px;
+      }
+
+      .agent-box {
+        display: flex;
+        flex-direction: column;
+        background-color: #2a2a2a;
+        border: 1px solid #3a3a3a;
+        border-radius: 8px;
+        padding: 16px;
+        flex: 1;
+      }
+
+      .agent-label {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .chatgpt-label {
+        color: #e9d8fd;
+      }
+
+      .cursor-label {
+        color: #e2e8f0;
+      }
+
+      .copilot-label {
+        color: #cbd5e1;
+      }
+
+      .user-label {
+        color: #a7f3d0;
+      }
+
+      .user-stamp {
+        margin-bottom: 8px;
+        display: none;
+        text-align: center;
+      }
+
+      .stamp-chatgpt {
+        background-color: rgba(168, 85, 247, 0.2);
+        color: #e9d8fd;
+        border: 1px solid rgba(168, 85, 247, 0.3);
+      }
+
+      .stamp-cursor {
+        background-color: rgba(6, 182, 212, 0.2);
+        color: #e2e8f0;
+        border: 1px solid rgba(6, 182, 212, 0.3);
+      }
+
+      .stamp-copilot {
+        background-color: rgba(100, 116, 139, 0.2);
+        color: #cbd5e1;
+        border: 1px solid rgba(100, 116, 139, 0.3);
+      }
+
+      .text-area {
+        flex: 1;
+        background-color: #1a1a1a;
+        border: 1px solid #404040;
+        border-radius: 6px;
+        padding: 12px;
+        color: #e2e8f0;
+        font-size: 14px;
+        font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+          "Courier New", monospace;
+        resize: none;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .text-area:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+      }
+
+      .text-area::placeholder {
+        color: #6b7280;
+      }
+
+      .chatgpt-area:focus {
+        border-color: #a855f7;
+        box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+      }
+
+      .cursor-area:focus {
+        border-color: #06b6d4;
+        box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+      }
+
+      .copilot-area:focus {
+        border-color: #64748b;
+        box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.2);
+      }
+
+      .user-area:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+      }
+
+      .emoji {
+        font-size: 20px;
+      }
+
+      .user-label-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .user-label-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #a7f3d0;
+      }
+
+      .copy-button {
+        background-color: #10b981;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      .copy-button:hover {
+        background-color: #059669;
+      }
+
+      .agent-box {
+        position: relative;
+      }
+    </style>
+    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <script src="https://unpkg.com/oboe@2.1.7/dist/oboe-browser.min.js"></script>
+  </head>
+  <body>
+    <div class="header">Agent Proxy Window</div>
+
+    <div class="container">
+      <div class="agent-tile">
+        <div class="agent-box">
+          <div class="agent-label chatgpt-label">
+            <span class="emoji">🧠</span>
+            ChatGPT
+          </div>
+          <textarea
+            class="text-area chatgpt-area"
+            data-agent="chatgpt"
+            placeholder="Paste ChatGPT responses here..."
+          ></textarea>
+        </div>
+
+        <!-- FWD box for ChatGPT -->
+        <div class="agent-box">
+          <div class="user-label-row">
+            <div
+              class="user-label-left fwd-label-clickable"
+              id="fwd-chatgpt-label"
+              style="cursor: pointer; transition: opacity 0.2s ease"
+            >
+              <span class="emoji">🧠</span>
+              <span style="color: #e9d8fd">FWD to ChatGPT</span>
+            </div>
+          </div>
+          <textarea
+            class="text-area chatgpt-area"
+            id="fwd-chatgpt-area"
+            placeholder="Forwarded messages to ChatGPT will appear here..."
+            readonly
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="agent-tile">
+        <div class="agent-box">
+          <div class="agent-label cursor-label">
+            <span class="emoji">🤖</span>
+            Cursor
+          </div>
+          <textarea
+            class="text-area cursor-area"
+            data-agent="cursor"
+            placeholder="Paste Cursor responses here..."
+          ></textarea>
+        </div>
+
+        <!-- FWD box for Cursor -->
+        <div class="agent-box">
+          <div class="user-label-row">
+            <div
+              class="user-label-left fwd-label-clickable"
+              id="fwd-cursor-label"
+              style="cursor: pointer; transition: opacity 0.2s ease"
+            >
+              <span class="emoji">🤖</span>
+              <span style="color: #e2e8f0">FWD to Cursor</span>
+            </div>
+          </div>
+          <textarea
+            class="text-area cursor-area"
+            id="fwd-cursor-area"
+            placeholder="Forwarded messages to Cursor will appear here..."
+            readonly
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="agent-tile">
+        <div class="agent-box">
+          <div class="agent-label copilot-label">
+            <span class="emoji">🛠️</span>
+            Copilot
+          </div>
+          <textarea
+            class="text-area copilot-area"
+            data-agent="copilot"
+            placeholder="Paste Copilot responses here..."
+          ></textarea>
+        </div>
+
+        <!-- FWD box for Copilot -->
+        <div class="agent-box">
+          <div class="user-label-row">
+            <div
+              class="user-label-left fwd-label-clickable"
+              id="fwd-copilot-label"
+              style="cursor: pointer; transition: opacity 0.2s ease"
+            >
+              <span class="emoji">🛠️</span>
+              <span style="color: #cbd5e1">FWD to Copilot</span>
+            </div>
+          </div>
+          <textarea
+            class="text-area copilot-area"
+            id="fwd-copilot-area"
+            placeholder="Forwarded messages to Copilot will appear here..."
+            readonly
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="agent-tile">
+        <div class="agent-box">
+          <div
+            class="user-stamp"
+            id="user-stamp"
+            style="cursor: pointer; transition: opacity 0.2s ease"
+          ></div>
+          <textarea
+            class="text-area user-area"
+            data-agent="user"
+            placeholder="User messages will appear here..."
+            readonly
+          ></textarea>
+          <div style="margin-top: 8px;">
+            <button id="debug-streaming" style="background: #4f46e5; color: white; padding: 4px 8px; border: none; border-radius: 4px; font-size: 12px; cursor: pointer;">🔄 Test Streaming</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const agentTextAreas = document.querySelectorAll(
+          ".text-area:not(.user-area)"
+        );
+        const userTextArea = document.querySelector(".user-area");
+        const userStamp = document.getElementById("user-stamp");
+
+        // Auto-resize text areas
+        document.querySelectorAll(".text-area").forEach((textArea) => {
+          textArea.addEventListener("input", function () {
+            this.style.height = "auto";
+            this.style.height = this.scrollHeight + "px";
+          });
+        });
+
+        // Handle agent responses (ChatGPT, Cursor, Copilot)
+        agentTextAreas.forEach((textArea) => {
+          let isPasting = false;
+
+          textArea.addEventListener("paste", async function (e) {
+            e.preventDefault(); // Prevent default paste to handle it manually
+            isPasting = true;
+
+            const agent = this.getAttribute("data-agent");
+            let markdown = "";
+
+            if (e.clipboardData.types.includes("text/html")) {
+              const html = e.clipboardData.getData("text/html");
+              const turndownService = new TurndownService();
+              markdown = turndownService.turndown(html);
+            } else {
+              markdown = e.clipboardData.getData("text/plain");
+            }
+
+            this.value = markdown;
+            const success = await writeToProxyFile(agent, markdown);
+
+            if (success) {
+              // Clear the text area after successful relay
+              this.value = "";
+              this.style.height = "auto";
+              console.log(
+                `Successfully relayed to ${
+                  agent.charAt(0).toUpperCase() + agent.slice(1)
+                }Relay.json and cleared`
+              );
+            } else {
+              console.log("Failed to relay, keeping content in text area");
+            }
+
+            setTimeout(() => {
+              isPasting = false;
+            }, 100);
+          });
+
+          // Handle typing (immediate writing) - but not when pasting
+          textArea.addEventListener("input", async function () {
+            if (isPasting) return; // Don't trigger on paste
+
+            const agent = this.getAttribute("data-agent");
+            const content = this.value;
+
+            if (content) {
+              await writeToProxyFile(agent, content);
+            }
+          });
+        });
+
+        // Function to convert HTML to markdown - enhanced for code detection
+        function convertHtmlToMarkdown(html) {
+          if (!html) return "";
+
+          // Remove HTML tags but preserve structure for code detection
+          let text = html
+            .replace(/<br\s*\/?>/gi, "\n")
+            .replace(/<\/p>/gi, "\n\n")
+            .replace(/<p[^>]*>/gi, "")
+            .replace(/<\/div>/gi, "\n")
+            .replace(/<div[^>]*>/gi, "")
+            .replace(/<[^>]+>/g, "")
+            .replace(/&nbsp;/g, " ")
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&amp;/g, "&");
+
+          // If it looks like code content, wrap it in a code block
+          if (isCodeContent(text)) {
+            return "```\n" + text.trim() + "\n```";
+          }
+
+          // Add basic inline formatting
+          return addInlineFormatting(text);
+        }
+
+        function isCodeContent(text) {
+          const codeIndicators = [
+            /<!DOCTYPE/i,
+            /<html/i,
+            /<head>/i,
+            /<body>/i,
+            /function\s*\(/,
+            /const\s+\w+/,
+            /let\s+\w+/,
+            /var\s+\w+/,
+            /\{\s*$/m,
+            /;\s*$/m,
+            /proxy-window\.html/,
+            /margin:\s*\d/,
+            /padding:\s*\d/,
+          ];
+
+          return codeIndicators.some((pattern) => pattern.test(text));
+        }
+
+        function addInlineFormatting(text) {
+          return text
+            .replace(
+              /\b([a-zA-Z0-9_.-]+\.(html|js|jsx|ts|tsx|json|css|py|md|txt))\b/g,
+              "`$1`"
+            )
+            .replace(/\b(\w+)\(\)/g, "`$1()`")
+            .replace(/\b(localhost:\d+[^\s]*)\b/g, "`$1`");
+        }
+
+        // Intelligently reconstruct markdown structure from plain text
+        function reconstructMarkdownStructure(text) {
+          if (!text) return text;
+
+          console.log("Original text:", text);
+
+          // Split into lines for analysis
+          const lines = text.split("\n");
+          const result = [];
+          let currentCodeBlock = [];
+          let inCodeBlock = false;
+          let codeBlockLanguage = "";
+
+          for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const trimmed = line.trim();
+
+            // Detect start of code block (CSS properties, JS syntax, etc.)
+            const isCodeLine =
+              /^[\s]*\.[\w-]+\s*\{|^[\s]*[\w-]+:\s*[\w-]+;|^[\s]*\}|^[\s]*border:|^[\s]*padding:|^[\s]*margin:|^[\s]*display:|^[\s]*grid-|^[\s]*flex|^[\s]*gap:|^[\s]*font-/.test(
+                line
+              );
+
+            if (isCodeLine && !inCodeBlock) {
+              // Starting a new code block
+              inCodeBlock = true;
+              codeBlockLanguage = "css"; // Default to CSS for style-related content
+              result.push("```" + codeBlockLanguage);
+              currentCodeBlock = [line];
+            } else if (isCodeLine && inCodeBlock) {
+              // Continue code block
+              currentCodeBlock.push(line);
+            } else if (
+              inCodeBlock &&
+              (trimmed === "" || /^[\s]*\}[\s]*$/.test(line))
+            ) {
+              // End of code block (closing brace or empty line after code)
+              currentCodeBlock.push(line);
+
+              // Look ahead to see if more code is coming
+              let hasMoreCode = false;
+              for (let j = i + 1; j < lines.length && j < i + 3; j++) {
+                if (
+                  /^[\s]*\.[\w-]+\s*\{|^[\s]*[\w-]+:\s*[\w-]+;/.test(lines[j])
+                ) {
+                  hasMoreCode = true;
+                  break;
+                }
+              }
+
+              if (!hasMoreCode || trimmed === "") {
+                // End the code block
+                result.push(...currentCodeBlock);
+                result.push("```");
+                inCodeBlock = false;
+                currentCodeBlock = [];
+                codeBlockLanguage = "";
+
+                // Add non-code line if it's not empty
+                if (trimmed !== "") {
+                  result.push(addInlineFormatting(line));
+                } else {
+                  result.push(line);
+                }
+              }
+            } else {
+              // Regular text line
+              if (inCodeBlock) {
+                // End current code block first
+                result.push(...currentCodeBlock);
+                result.push("```");
+                inCodeBlock = false;
+                currentCodeBlock = [];
+              }
+
+              // Apply inline formatting to regular text
+              result.push(addInlineFormatting(line));
+            }
+          }
+
+          // Handle any remaining code block
+          if (inCodeBlock && currentCodeBlock.length > 0) {
+            result.push(...currentCodeBlock);
+            result.push("```");
+          }
+
+          const finalResult = result.join("\n");
+          console.log("Reconstructed markdown:", finalResult);
+          return finalResult;
+        }
+
+        // Apply inline formatting to regular text lines
+        function addInlineFormatting(text) {
+          if (!text) return text;
+
+          return (
+            text
+              // Format file names and extensions
+              .replace(
+                /\b([a-zA-Z0-9_.-]+\.(html|js|jsx|ts|tsx|json|css|py|md|txt|yml|yaml))\b/g,
+                "`$1`"
+              )
+              // Format function calls
+              .replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\(\)/g, "`$1()`")
+              // Format localhost URLs
+              .replace(/\b(localhost:\d+[^\s]*)\b/g, "`$1`")
+              // Format CSS property names when not in code blocks
+              .replace(
+                /\b(display|container|grid|flex|border|padding|margin)\b(?![:\s]*[\w-]+;)/g,
+                "`$1`"
+              )
+              // Don't double-wrap already formatted code
+              .replace(/`{2,}/g, "`")
+          );
+        }
+
+        function formatLine(line) {
+          return (
+            line
+              // File names with specific extensions only
+              .replace(
+                /\b([a-zA-Z0-9_.-]+\.(html|js|jsx|ts|tsx|json|css|py|md|txt|yml|yaml))\b/g,
+                "`$1`"
+              )
+              // Function calls with parentheses
+              .replace(/\b(\w+)\(\)/g, "`$1()`")
+              // URLs and localhost
+              .replace(/\b(https?:\/\/[^\s]+|localhost:\d+[^\s]*)\b/g, "`$1`")
+          );
+        }
+
+        // Function to detect and format code blocks in plain text
+        function formatPlainTextAsMarkdown(text) {
+          if (!text) return text;
+
+          console.log("Formatting text:", text);
+
+          // More aggressive patterns to detect code-like content
+          const codePatterns = [
+            /^[+-].*$/m, // Git diff lines
+            /[\w-]+\.[a-z]+([\w\d\s]*[\+\-]\d+|:)/m, // File names with line numbers or colons
+            /^\s*{[\s\S]*}$/m, // JSON objects
+            /^\s*<[\w\s="'\/]+>/m, // HTML tags
+            /^\s*(function|const|let|var|class|import|export|if|for|while)/m, // JavaScript keywords
+            /^\s*(def|class|import|from|if|for|while)/m, // Python keywords
+            /^\s*#include|#define/m, // C/C++ preprocessor
+            /\.(js|ts|jsx|tsx|html|css|py|json|md|txt|yml|yaml)/, // File extensions
+            /\b(proxy-window\.html|container|display|grid|flex|border|padding|margin)\b/, // CSS-like content
+            /\b(console\.log|document\.|window\.|function|return)\b/, // JS-like content
+          ];
+
+          // Check if the text looks like code
+          const hasCodePatterns = codePatterns.some((pattern) => {
+            const matches = pattern.test(text);
+            console.log(`Pattern ${pattern} matches:`, matches);
+            return matches;
+          });
+
+          console.log("Has code patterns:", hasCodePatterns);
+
+          if (hasCodePatterns) {
+            // Try to detect the language
+            let language = "text";
+            if (
+              /\.(jsx?|tsx?|json)/.test(text) ||
+              /\b(function|const|let|var|class|import|export|console\.log|document\.|window\.)\b/.test(
+                text
+              )
+            ) {
+              language = /\.tsx?/.test(text) ? "typescript" : "javascript";
+            } else if (/\.html/.test(text) || /<[\w\s="'\/]+>/.test(text)) {
+              language = "html";
+            } else if (
+              /\.css/.test(text) ||
+              /\b(display|grid|flex|border|padding|margin|container)\b/.test(
+                text
+              )
+            ) {
+              language = "css";
+            } else if (
+              /\.py/.test(text) ||
+              /^\s*(def|class|import|from)/m.test(text)
+            ) {
+              language = "python";
+            } else if (/^[+-].*$/m.test(text)) {
+              language = "diff";
+            }
+
+            console.log("Detected language:", language);
+
+            // Try to format the text better before wrapping
+            let formattedText = text;
+
+            // Try to restore line breaks in code-like content
+            if (
+              text.includes("proxy-window.html") ||
+              text.includes("container") ||
+              text.includes("display")
+            ) {
+              // This looks like CSS/HTML diff content, try to restore formatting
+              formattedText = text
+                .replace(/(\w+)(\+\d+)/g, "\n$1$2") // Line numbers on new lines
+                .replace(/(\})\s*(\w)/g, "$1\n$2") // Closing braces get newlines
+                .replace(/(\{)\s*(\w)/g, "$1\n    $2") // Opening braces with indentation
+                .replace(/;(\w)/g, ";\n    $1") // Semicolons with newlines
+                .trim();
+            }
+
+            // Wrap in code block
+            const result = `\`\`\`${language}\n${formattedText}\n\`\`\``;
+            console.log("Final formatted result:", result);
+            return result;
+          }
+
+          console.log("Not detected as code, applying basic formatting");
+
+          // For non-code content, apply basic markdown formatting
+          return (
+            text
+              // File paths and extensions
+              .replace(/\b([a-zA-Z0-9_\-\/\\]+\.[a-zA-Z0-9]+)\b/g, "`$1`")
+              // Function calls
+              .replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\(\)/g, "`$1()`")
+              // URLs
+              .replace(/\b(https?:\/\/[^\s]+|localhost:\d+)\b/g, "`$1`")
+              // Clean up multiple backticks
+              .replace(/`{2,}/g, "`")
+          );
+        }
+
+        // Function to auto-format text into clean chat-style markdown
+        function autoFormatMarkdown(text) {
+          if (!text || text.trim().length === 0) return text;
+
+          // Just return the text with minimal formatting for natural chat appearance
+          return (
+            text
+              .trim()
+              // Basic inline code highlighting for files and functions
+              .replace(
+                /\b([a-zA-Z0-9_-]+\.(json|js|ts|tsx|jsx|html|css|py|md|txt|yml|yaml))\b/g,
+                "`$1`"
+              )
+              .replace(/\b([a-zA-Z_][a-zA-Z0-9_]*\(\))/g, "`$1`")
+              .replace(/\b(localhost:\d+)\b/g, "`$1`")
+          );
+        }
+
+        // Function to write to Pxy files (destructive overwrite)
+        async function writeToProxyFile(agent, message) {
+          try {
+            // Send the raw message without any auto-formatting
+            const response = await fetch(
+              "http://localhost:3001/write-proxy-message",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  agent,
+                  message: {
+                    timestamp: new Date().toISOString(),
+                    sender: "Assistant",
+                    message: message,
+                  },
+                }),
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error(
+                `Failed to write proxy message: ${response.status}`
+              );
+            }
+
+            return true; // Success
+          } catch (error) {
+            console.error("Error writing to proxy file:", error);
+            return false; // Failure
+          }
+        }
+
+        // Function to update the user stamp with big bright agent display
+        function updateUserStamp(targetAgent) {
+          console.log("Updating user stamp for agent:", targetAgent);
+
+          const agentEmojis = {
+            chatgpt: "🧠",
+            cursor: "🤖",
+            copilot: "🛠️",
+          };
+
+          const agentColors = {
+            chatgpt: "#E9D8FD",
+            cursor: "#E2E8F0",
+            copilot: "#CBD5E1",
+          };
+
+          const agentBgColors = {
+            chatgpt: "#382952",
+            cursor: "#2A4C47",
+            copilot: "#2D3748",
+          };
+
+          // Make sure we have valid agent data
+          if (!agentEmojis[targetAgent]) {
+            console.error("Unknown agent:", targetAgent);
+            return;
+          }
+
+          userStamp.innerHTML = `
+            <div style="
+              font-size: 24px; 
+              font-weight: bold; 
+              color: ${agentColors[targetAgent]}; 
+              background: ${agentBgColors[targetAgent]};
+              padding: 12px 20px;
+              border-radius: 12px;
+              text-align: center;
+              border: 2px solid ${agentColors[targetAgent]};
+              box-shadow: 0 0 20px ${agentBgColors[targetAgent]}50;
+              text-transform: uppercase;
+              letter-spacing: 2px;
+            ">
+              ${agentEmojis[targetAgent]} TO ${targetAgent.toUpperCase()} ${
+            agentEmojis[targetAgent]
+          }
+            </div>
+          `;
+          userStamp.style.display = "block";
+          console.log("User stamp updated and displayed");
+        }
+
+        // Initialize oboe.js streaming for real-time updates
+        function initializeStreaming() {
+          console.log('🌊 Starting oboe.js proxy streaming...');
+          
+          oboe('http://localhost:3001/proxy-stream')
+            .node('*', function(data) {
+              console.log('📡 Received streaming data:', data);
+              
+              try {
+                if (data.type === 'userProxy') {
+                  console.log('🔔 Processing userProxy update:', data.messages);
+                  handleUserProxyUpdate(data.messages);
+                } else if (data.type === 'fwd') {
+                  console.log('🔔 Processing FWD update for', data.agent, ':', data.messages);
+                  handleFwdUpdate(data.agent, data.messages);
+                } else {
+                  console.log('⚠️ Unknown data type:', data.type);
+                }
+              } catch (error) {
+                console.error('❌ Error processing streaming data:', error);
+              }
+            })
+            .done(function() {
+              console.log('✅ Proxy streaming completed');
+            })
+            .fail(function(error) {
+              console.error('❌ Proxy streaming error:', error);
+              // Retry connection after 3 seconds
+              setTimeout(() => {
+                console.log('🔄 Retrying proxy streaming connection...');
+                initializeStreaming();
+              }, 3000);
+            });
+        }
+
+        // Handle userProxy.json updates
+        function handleUserProxyUpdate(messages) {
+          console.log("📨 UserProxy update:", messages);
+
+          if (messages && messages.length > 0) {
+            const latestMessage = messages[messages.length - 1];
+            console.log("Latest message:", latestMessage);
+            console.log("Target agent:", latestMessage.toAgent);
+
+            // Update the user text area with the message
+            userTextArea.value = latestMessage.message;
+
+            // Update the big bright agent display
+            updateUserStamp(latestMessage.toAgent);
+
+            // Auto-resize
+            userTextArea.style.height = "auto";
+            userTextArea.style.height = userTextArea.scrollHeight + "px";
+          } else {
+            console.log("No messages found in userProxy");
+            // Hide the stamp if no messages
+            userStamp.style.display = "none";
+          }
+        }
+
+        // Handle FWD file updates
+        function handleFwdUpdate(agent, messages) {
+          console.log(`📨 FWD update for ${agent}:`, messages);
+
+          const fwdTextArea = document.getElementById(`fwd-${agent}-area`);
+          if (!fwdTextArea) {
+            console.error(`❌ Could not find textarea with id: fwd-${agent}-area`);
+            return;
+          }
+
+          if (messages && messages.length > 0) {
+            const latestMessage = messages[messages.length - 1];
+            console.log(`Setting message for ${agent}:`, latestMessage.message);
+
+            // Add source prefix based on the From field
+            let sourcePrefix = "";
+            if (latestMessage.From) {
+              // Map source agents to their emojis
+              const sourceEmojis = {
+                User: "👤",
+                Cursor: "🤖",
+                ChatGPT: "🧠",
+                Copilot: "🛠️",
+              };
+
+              const sourceEmoji = sourceEmojis[latestMessage.From] || "❓";
+              sourcePrefix = `${sourceEmoji}: `;
+            }
+
+            fwdTextArea.value = sourcePrefix + latestMessage.message;
+
+            // Auto-resize
+            fwdTextArea.style.height = "auto";
+            fwdTextArea.style.height = fwdTextArea.scrollHeight + "px";
+          } else {
+            console.log(`No messages for ${agent}, clearing textarea`);
+            fwdTextArea.value = "";
+          }
+        }
+
+        // Start streaming immediately
+        initializeStreaming();
+
+        // Copy button functionality for FWD boxes
+        ["chatgpt", "cursor", "copilot"].forEach((agent) => {
+          const fwdLabel = document.getElementById(`fwd-${agent}-label`);
+          const fwdTextArea = document.getElementById(`fwd-${agent}-area`);
+
+          // Add hover effect
+          fwdLabel.addEventListener("mouseenter", function () {
+            this.style.opacity = "0.7";
+          });
+
+          fwdLabel.addEventListener("mouseleave", function () {
+            this.style.opacity = "1";
+          });
+
+          fwdLabel.addEventListener("click", async function () {
+            const fwdText = fwdTextArea.value;
+
+            if (!fwdText || fwdText.trim() === "") {
+              // Temporarily change text to show "Empty"
+              const originalHtml = this.innerHTML;
+              this.innerHTML = `<span class="emoji">${
+                this.querySelector(".emoji").textContent
+              }</span><span style="color: #ef4444">Empty</span>`;
+              setTimeout(() => {
+                this.innerHTML = originalHtml;
+              }, 1000);
+              return;
+            }
+
+            try {
+              await navigator.clipboard.writeText(fwdText);
+              // Temporarily change text to show "Copied!"
+              const originalHtml = this.innerHTML;
+              this.innerHTML = `<span class="emoji">${
+                this.querySelector(".emoji").textContent
+              }</span><span style="color: #10b981">Copied!</span>`;
+              setTimeout(() => {
+                this.innerHTML = originalHtml;
+              }, 2000);
+            } catch (err) {
+              console.error("Failed to copy text: ", err);
+              // Temporarily change text to show "Failed"
+              const originalHtml = this.innerHTML;
+              this.innerHTML = `<span class="emoji">${
+                this.querySelector(".emoji").textContent
+              }</span><span style="color: #ef4444">Failed</span>`;
+              setTimeout(() => {
+                this.innerHTML = originalHtml;
+              }, 2000);
+            }
+          });
+        });
+
+        // Make user stamp clickable for copying
+        userStamp.addEventListener("mouseenter", function () {
+          this.style.opacity = "0.7";
+        });
+
+        userStamp.addEventListener("mouseleave", function () {
+          this.style.opacity = "1";
+        });
+
+        userStamp.addEventListener("click", async function () {
+          const userText = userTextArea.value;
+
+          if (!userText || userText.trim() === "") {
+            // Temporarily change content to show "Empty"
+            const originalHtml = this.innerHTML;
+            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #ef4444; background: #3f1f1f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #ef4444; text-transform: uppercase; letter-spacing: 2px;">❌ EMPTY ❌</div>`;
+            setTimeout(() => {
+              this.innerHTML = originalHtml;
+            }, 1000);
+            return;
+          }
+
+          try {
+            await navigator.clipboard.writeText(userText);
+            // Temporarily change content to show "Copied!"
+            const originalHtml = this.innerHTML;
+            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #10b981; background: #1f3f2f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #10b981; text-transform: uppercase; letter-spacing: 2px;">✅ COPIED! ✅</div>`;
+            setTimeout(() => {
+              this.innerHTML = originalHtml;
+            }, 2000);
+          } catch (err) {
+            console.error("Failed to copy text: ", err);
+            // Temporarily change content to show "Failed"
+            const originalHtml = this.innerHTML;
+            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #ef4444; background: #3f1f1f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #ef4444; text-transform: uppercase; letter-spacing: 2px;">❌ FAILED ❌</div>`;
+            setTimeout(() => {
+              this.innerHTML = originalHtml;
+            }, 2000);
+          }
+        });
+
+        // Debug button for testing streaming
+        document.getElementById('debug-streaming').addEventListener('click', async () => {
+          console.log('🔄 Testing streaming manually...');
+          
+          // Write a test message to userProxy
+          const testData = {
+            agent: "cursor",
+            message: {
+              message: "Test streaming at " + new Date().toLocaleTimeString(),
+              toAgent: "cursor"
+            }
+          };
+          
+          try {
+            const response = await fetch('/write-user-proxy-message', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(testData)
+            });
+            
+            if (response.ok) {
+              console.log('✅ Test message sent, streaming should trigger');
+            } else {
+              console.error('❌ Failed to send test message');
+            }
+          } catch (error) {
+            console.error('❌ Error sending test message:', error);
+          }
+        });
+
+        console.log("Agent Proxy Window initialized");
+      });
+    </script>
+  </body>
+</html>

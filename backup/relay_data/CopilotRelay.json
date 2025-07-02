@@ -1,0 +1,104 @@
+{
+  "messages": [
+    {
+      "timestamp": "2025-06-27T23:10:45.295Z",
+      "sender": "User",
+      "message": "bkb"
+    },
+    {
+      "timestamp": "2025-06-27T23:11:19.543Z",
+      "sender": "User",
+      "message": "12346"
+    },
+    {
+      "timestamp": "2025-06-27T23:33:23.991Z",
+      "sender": "User",
+      "message": "whgds"
+    },
+    {
+      "timestamp": "2025-06-27T23:44:08.115Z",
+      "sender": "User",
+      "message": "Test message for copilot tab"
+    },
+    {
+      "timestamp": "2025-06-27T23:45:44.305Z",
+      "sender": "User",
+      "message": "Test message for copilot tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:03:03.201Z",
+      "sender": "User",
+      "message": "Test message for copilot tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:05:50.944Z",
+      "sender": "User",
+      "message": "Another test message"
+    },
+    {
+      "timestamp": "2025-06-28T00:06:09.764Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:06:23.948Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:07:27.860Z",
+      "sender": "User",
+      "message": "chexk"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:15.134Z",
+      "sender": "User",
+      "message": "Another test message"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:30.916Z",
+      "sender": "User",
+      "message": "Another test message"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:34.549Z",
+      "sender": "User",
+      "message": "Test message for copilot tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:19:44.855Z",
+      "sender": "User",
+      "message": "Another test message"
+    },
+    {
+      "timestamp": "2025-06-28T00:35:41.499Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:43:58.475Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:51:12.233Z",
+      "sender": "User",
+      "message": "Another test message"
+    },
+    {
+      "timestamp": "2025-06-28T00:56:51.774Z",
+      "sender": "User",
+      "message": "12"
+    },
+    {
+      "timestamp": "2025-06-28T00:58:44.443Z",
+      "sender": "Assistant",
+      "message": "ce both polling systems with oboe.js streaming. Let me create the new streaming logic:"
+    },
+    {
+      "timestamp": "2025-06-28T02:07:07.924Z",
+      "sender": "User",
+      "message": "yo"
+    }
+  ]
+}
