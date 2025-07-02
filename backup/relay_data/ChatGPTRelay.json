@@ -1,0 +1,234 @@
+{
+  "messages": [
+    {
+      "timestamp": "2025-06-27T21:35:00.000Z",
+      "sender": "User",
+      "message": "Test message with relay watcher running"
+    },
+    {
+      "timestamp": "2025-06-27T21:45:00.000Z",
+      "sender": "User",
+      "message": "Testing if the app actually works now!"
+    },
+    {
+      "timestamp": "2025-06-27T21:34:02.453Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T21:50:00.000Z",
+      "sender": "User",
+      "message": "Testing vanilla JS - does this work?"
+    },
+    {
+      "timestamp": "2025-06-27T22:47:48.863Z",
+      "sender": "User",
+      "message": "CHECK"
+    },
+    {
+      "timestamp": "2025-06-27T22:50:40.3NZ",
+      "sender": "User",
+      "message": "Test message for userProxy integration"
+    },
+    {
+      "timestamp": "2025-06-27T22:51:15.000Z",
+      "sender": "User",
+      "message": "Hello from the updated frontend! This should appear in both chat log and userProxy.json"
+    },
+    {
+      "timestamp": "2025-06-27T23:10:19.778Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:14:37.000Z",
+      "sender": "User",
+      "message": "Testing proxy window display - should appear in userProxy.json AND on proxy-window.html"
+    },
+    {
+      "timestamp": "2025-06-27T23:16:12.079Z",
+      "sender": "User",
+      "message": "hello"
+    },
+    {
+      "timestamp": "2025-06-27T23:17:45.000Z",
+      "sender": "User",
+      "message": "Testing no page refresh after fixing the event handlers"
+    },
+    {
+      "timestamp": "2025-06-27T23:19:14.519Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:19:52.964Z",
+      "sender": "User",
+      "message": "ftyjftj"
+    },
+    {
+      "timestamp": "2025-06-27T23:35:21.424Z",
+      "sender": "User",
+      "message": "hwtr"
+    },
+    {
+      "timestamp": "2025-06-27T23:36:44.273Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:44:09.997Z",
+      "sender": "User",
+      "message": "Test message for chatgpt tab"
+    },
+    {
+      "timestamp": "2025-06-27T23:45:46.256Z",
+      "sender": "User",
+      "message": "Test message for chatgpt tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:03:05.117Z",
+      "sender": "User",
+      "message": "Test message for chatgpt tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:06:13.735Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:06:20.797Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:07:30.706Z",
+      "sender": "User",
+      "message": "h"
+    },
+    {
+      "timestamp": "2025-06-28T00:07:33.125Z",
+      "sender": "User",
+      "message": "bhk"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:36.483Z",
+      "sender": "User",
+      "message": "Test message for chatgpt tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:16:41.135Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:32:56.543Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:43:37.014Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:44:10.641Z",
+      "sender": "User",
+      "message": "12345"
+    },
+    {
+      "timestamp": "2025-06-28T00:44:11.306Z",
+      "sender": "User",
+      "message": "Test auto-scroll after sending"
+    },
+    {
+      "timestamp": "2025-06-28T00:44:54.088Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:47:53.841Z",
+      "sender": "User",
+      "message": "123"
+    },
+    {
+      "timestamp": "2025-06-28T00:51:47.865Z",
+      "sender": "User",
+      "message": "Test auto-scroll after sending"
+    },
+    {
+      "timestamp": "2025-06-28T00:56:39.735Z",
+      "sender": "User",
+      "message": "12"
+    },
+    {
+      "timestamp": "2025-06-28T00:57:01.296Z",
+      "sender": "User",
+      "message": "12345"
+    },
+    {
+      "timestamp": "2025-06-28T00:58:21.134Z",
+      "sender": "Assistant",
+      "message": "ce both polling systems with oboe.js streaming. Let me create the new streaming logic:"
+    },
+    {
+      "timestamp": "2025-06-28T01:02:32.265Z",
+      "sender": "Assistant",
+      "message": "continue"
+    },
+    {
+      "timestamp": "2025-06-28T01:10:51.359Z",
+      "sender": "Assistant",
+      "message": "    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}\n\n1\\. I want user messages aligned right and agent messages aligned left, \n\n2\\. We had a system for each guy 🧠 🤖and 🛠️ - they’re still right in the tabs but you’ve replaced they’re names and icons with 🤖 and agent so they’re not unique anymore, can we fix these things please?"
+    },
+    {
+      "timestamp": "2025-06-28T01:11:03.400Z",
+      "sender": "Assistant",
+      "message": "    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}\n\n1\\. I want user messages aligned right and agent messages aligned left, \n\n2\\. We had a system for each guy 🧠 🤖and 🛠️ - they’re still right in the tabs but you’ve replaced they’re names and icons with 🤖 and agent so they’re not unique anymore, can we fix these things please?"
+    },
+    {
+      "timestamp": "2025-06-28T01:27:32.422Z",
+      "sender": "Assistant",
+      "message": "    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}\n\n1\\. I want user messages aligned right and agent messages aligned left, \n\n2\\. We had a system for each guy 🧠 🤖and 🛠️ - they’re still right in the tabs but you’ve replaced they’re names and icons with 🤖 and agent so they’re not unique anymore, can we fix these things please?"
+    },
+    {
+      "timestamp": "2025-06-28T01:27:36.650Z",
+      "sender": "Assistant",
+      "message": "direc"
+    },
+    {
+      "timestamp": "2025-06-28T01:27:44.645Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T01:27:48.811Z",
+      "sender": "Assistant",
+      "message": "direc"
+    },
+    {
+      "timestamp": "2025-06-28T01:27:51.404Z",
+      "sender": "Assistant",
+      "message": "direc"
+    },
+    {
+      "timestamp": "2025-06-28T01:27:52.340Z",
+      "sender": "Assistant",
+      "message": "direc"
+    },
+    {
+      "timestamp": "2025-06-28T01:27:54.322Z",
+      "sender": "Assistant",
+      "message": "direc"
+    },
+    {
+      "timestamp": "2025-06-28T02:06:51.905Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T02:07:20.314Z",
+      "sender": "User",
+      "message": "13"
+    }
+  ]
+}

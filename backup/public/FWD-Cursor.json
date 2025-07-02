@@ -1,0 +1,9 @@
+{
+  "messages": [
+    {
+      "From": "User",
+      "message": "Test from curl streaming",
+      "toAgent": "cursor"
+    }
+  ]
+}

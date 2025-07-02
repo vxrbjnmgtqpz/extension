@@ -1,0 +1,25 @@
+{
+  "name": "workstation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "start": "node server.js",
+    "proxy-launcher": "electron proxy-launcher.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "electron": "^32.2.6",
+    "express": "^4.19.2",
+    "marked": "^16.0.0",
+    "oboe": "^2.1.7",
+    "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.1"
+  }
+}

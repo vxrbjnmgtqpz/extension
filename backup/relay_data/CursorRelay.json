@@ -1,0 +1,368 @@
+{
+  "messages": [
+    {
+      "timestamp": "2025-06-27T23:10:36.580Z",
+      "sender": "User",
+      "message": "cfgvhj"
+    },
+    {
+      "timestamp": "2025-06-27T23:16:16.931Z",
+      "sender": "User",
+      "message": "hi"
+    },
+    {
+      "timestamp": "2025-06-27T23:19:17.492Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:19:23.164Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:20:59.000Z",
+      "sender": "User",
+      "message": "Testing cursor tab should stay selected"
+    },
+    {
+      "timestamp": "2025-06-27T23:21:18.703Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:21:26.632Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:21:37.861Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:27:26.010Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:30:19.340Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:31:11.635Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:34:37.407Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:35:07.829Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:36:23.037Z",
+      "sender": "User",
+      "message": "jcfj"
+    },
+    {
+      "timestamp": "2025-06-27T23:36:36.590Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:37:15.255Z",
+      "sender": "User",
+      "message": "jump"
+    },
+    {
+      "timestamp": "2025-06-27T23:37:57.000Z",
+      "sender": "User",
+      "message": "test nuclear debugging"
+    },
+    {
+      "timestamp": "2025-06-27T23:39:10.737Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:41:18.073Z",
+      "sender": "User",
+      "message": "hi"
+    },
+    {
+      "timestamp": "2025-06-27T23:41:29.286Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:44:06.225Z",
+      "sender": "User",
+      "message": "Test message for cursor tab"
+    },
+    {
+      "timestamp": "2025-06-27T23:44:42.479Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:45:42.373Z",
+      "sender": "User",
+      "message": "Test message for cursor tab"
+    },
+    {
+      "timestamp": "2025-06-27T23:46:07.789Z",
+      "sender": "User",
+      "message": "Test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-27T23:46:28.155Z",
+      "sender": "User",
+      "message": "Test message that might cause jumping"
+    },
+    {
+      "timestamp": "2025-06-27T23:46:50.433Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:49:07.019Z",
+      "sender": "User",
+      "message": "Test message that might cause jumping"
+    },
+    {
+      "timestamp": "2025-06-27T23:49:26.706Z",
+      "sender": "User",
+      "message": "Fast typing test"
+    },
+    {
+      "timestamp": "2025-06-27T23:49:49.756Z",
+      "sender": "User",
+      "message": "Slow network test"
+    },
+    {
+      "timestamp": "2025-06-27T23:50:33.322Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:51:03.468Z",
+      "sender": "User",
+      "message": "test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-27T23:51:31.292Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-27T23:55:39.840Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:01:24.771Z",
+      "sender": "User",
+      "message": "Test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-28T00:02:24.830Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:03:01.250Z",
+      "sender": "User",
+      "message": "Test message for cursor tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:03:42.733Z",
+      "sender": "User",
+      "message": "g"
+    },
+    {
+      "timestamp": "2025-06-28T00:05:23.795Z",
+      "sender": "User",
+      "message": "Test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-28T00:05:49.261Z",
+      "sender": "User",
+      "message": "Test message to see if tab jumps"
+    },
+    {
+      "timestamp": "2025-06-28T00:06:05.420Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:06:17.695Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:07:23.158Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:14:17.887Z",
+      "sender": "User",
+      "message": "Test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-28T00:14:39.203Z",
+      "sender": "User",
+      "message": "Test streaming message"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:13.968Z",
+      "sender": "User",
+      "message": "Test message to see if tab jumps"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:29.767Z",
+      "sender": "User",
+      "message": "Test message to see if tab jumps"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:29.801Z",
+      "sender": "User",
+      "message": "Test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:30.217Z",
+      "sender": "User",
+      "message": "Fast typing test"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:31.199Z",
+      "sender": "User",
+      "message": "test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:32.301Z",
+      "sender": "User",
+      "message": "Test streaming message"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:32.634Z",
+      "sender": "User",
+      "message": "Test message for cursor tab"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:32.951Z",
+      "sender": "User",
+      "message": "Test message that might cause jumping"
+    },
+    {
+      "timestamp": "2025-06-28T00:15:33.834Z",
+      "sender": "User",
+      "message": "Slow network test"
+    },
+    {
+      "timestamp": "2025-06-28T00:19:43.689Z",
+      "sender": "User",
+      "message": "Test message to see if tab jumps"
+    },
+    {
+      "timestamp": "2025-06-28T00:33:03.347Z",
+      "sender": "User",
+      "message": "suh"
+    },
+    {
+      "timestamp": "2025-06-28T00:41:18.770Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "timestamp": "2025-06-28T00:41:23.588Z",
+      "sender": "User",
+      "message": "123"
+    },
+    {
+      "timestamp": "2025-06-28T00:43:44.556Z",
+      "sender": "User",
+      "message": "456"
+    },
+    {
+      "timestamp": "2025-06-28T00:43:51.547Z",
+      "sender": "User",
+      "message": "456"
+    },
+    {
+      "timestamp": "2025-06-28T00:47:28.116Z",
+      "sender": "User",
+      "message": "Test oboe streaming update - 1751071648117"
+    },
+    {
+      "timestamp": "2025-06-28T00:51:09.234Z",
+      "sender": "User",
+      "message": "Test message to see if tab jumps"
+    },
+    {
+      "timestamp": "2025-06-28T00:51:13.302Z",
+      "sender": "User",
+      "message": "Test message for cursor"
+    },
+    {
+      "timestamp": "2025-06-28T00:51:16.599Z",
+      "sender": "User",
+      "message": "Test streaming message"
+    },
+    {
+      "timestamp": "2025-06-28T00:56:44.905Z",
+      "sender": "User",
+      "message": "12"
+    },
+    {
+      "timestamp": "2025-06-28T00:56:58.278Z",
+      "sender": "User",
+      "message": "1234"
+    },
+    {
+      "timestamp": "2025-06-28T00:58:43.111Z",
+      "sender": "Assistant",
+      "message": "ce both polling systems with oboe.js streaming. Let me create the new streaming logic:"
+    },
+    {
+      "timestamp": "2025-06-28T01:15:09.600Z",
+      "sender": "User",
+      "message": "Test streaming message"
+    },
+    {
+      "timestamp": "2025-06-28T01:28:00.791Z",
+      "sender": "Assistant",
+      "message": "direc"
+    },
+    {
+      "timestamp": "2025-06-28T01:28:05.670Z",
+      "sender": "User",
+      "message": "hey"
+    },
+    {
+      "sender": "User",
+      "message": "Test from curl streaming"
+    },
+    {
+      "timestamp": "2025-06-28T01:40:20.653Z",
+      "sender": "User",
+      "message": "ayyee"
+    },
+    {
+      "timestamp": "2025-06-28T02:07:01.387Z",
+      "sender": "User",
+      "message": "yo"
+    },
+    {
+      "timestamp": "2025-06-28T02:07:17.365Z",
+      "sender": "User",
+      "message": "123"
+    }
+  ]
+}
