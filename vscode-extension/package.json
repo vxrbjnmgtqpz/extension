@@ -1,0 +1,91 @@
+{
+  "name": "oboe-relay-extension",
+  "displayName": "Oboe ChatGPT Bridge",
+  "description": "Bridges ChatGPT native Mac oboe tool with VS Code file access",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "oboe.sendSelectionToAgent",
+        "title": "Oboe: Send Selection to Agent",
+        "category": "Oboe"
+      },
+      {
+        "command": "oboe.sendFileToAgent",
+        "title": "Oboe: Send File to Agent",
+        "category": "Oboe"
+      },
+      {
+        "command": "oboe.openChatPanel",
+        "title": "Oboe: Open Chat Panel",
+        "category": "Oboe"
+      },
+      {
+        "command": "oboe.applyLatestResponse",
+        "title": "Oboe: Apply Latest Response",
+        "category": "Oboe"
+      },
+      {
+        "command": "oboe.enableFileBridge",
+        "title": "Oboe: Enable File Access Bridge",
+        "category": "Oboe"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "oboe.sendSelectionToAgent",
+        "key": "cmd+shift+o",
+        "when": "editorHasSelection"
+      }
+    ],
+    "configuration": {
+      "title": "Oboe Bridge",
+      "properties": {
+        "oboe.relayDataPath": {
+          "type": "string",
+          "default": "./relay_data",
+          "description": "Path to relay data directory"
+        },
+        "oboe.defaultAgent": {
+          "type": "string",
+          "default": "chatgpt",
+          "enum": [
+            "chatgpt",
+            "copilot",
+            "cursor"
+          ],
+          "description": "Default agent for sending code"
+        },
+        "oboe.enableFileAccess": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable file access bridge for ChatGPT"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node ./test/runTest.js",
+    "compile": "node extension.js",
+    "watch": "node --watch extension.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@types/node": "14.x",
+    "@vscode/test-electron": "^2.3.0",
+    "mocha": "^10.0.0"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3"
+  }
+}
