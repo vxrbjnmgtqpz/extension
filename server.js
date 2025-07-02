@@ -7,6 +7,178 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve JSON files from relay_data directory to prevent live reload
+app.get('/ChatGPTRelay.json', (req, res) => {
+  res.sendFile(PROXY_PATHS.chatgpt);
+});
+
+app.get('/CursorRelay.json', (req, res) => {
+  res.sendFile(PROXY_PATHS.cursor);
+});
+
+app.get('/CopilotRelay.json', (req, res) => {
+  res.sendFile(PROXY_PATHS.copilot);
+});
+
+app.get('/userProxy.json', (req, res) => {
+  res.sendFile(USER_PROXY_PATH);
+});
+
+// Oboe.js JSON streaming endpoint
+app.get('/stream', (req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+  });
+
+  // Send initial data immediately
+  const sendInitialData = () => {
+    const agents = ['chatgpt', 'cursor', 'copilot'];
+    agents.forEach(agent => {
+      const filePath = PROXY_PATHS[agent];
+      if (fs.existsSync(filePath)) {
+        try {
+          const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+          res.write(JSON.stringify({
+            type: 'update',
+            agent: agent,
+            messages: data.messages || []
+          }) + '\n');
+        } catch (error) {
+          console.error(`Error reading ${agent}:`, error);
+        }
+      }
+    });
+  };
+
+  sendInitialData();
+
+  const streamUpdate = (agent, filePath) => {
+    try {
+      if (fs.existsSync(filePath)) {
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        res.write(JSON.stringify({
+          type: 'update',
+          agent: agent,
+          messages: data.messages || []
+        }) + '\n');
+      }
+    } catch (error) {
+      console.error(`Error streaming ${agent}:`, error);
+    }
+  };
+
+  // Watch for file changes
+  const watchFiles = () => {
+    fs.watchFile(PROXY_PATHS.chatgpt, { interval: 1000 }, () => streamUpdate('chatgpt', PROXY_PATHS.chatgpt));
+    fs.watchFile(PROXY_PATHS.cursor, { interval: 1000 }, () => streamUpdate('cursor', PROXY_PATHS.cursor));
+    fs.watchFile(PROXY_PATHS.copilot, { interval: 1000 }, () => streamUpdate('copilot', PROXY_PATHS.copilot));
+  };
+
+  watchFiles();
+
+  // Clean up on disconnect
+  req.on('close', () => {
+    fs.unwatchFile(PROXY_PATHS.chatgpt);
+    fs.unwatchFile(PROXY_PATHS.cursor);
+    fs.unwatchFile(PROXY_PATHS.copilot);
+  });
+});
+
+// Oboe.js JSON streaming endpoint for proxy window (userProxy + FWD files)
+app.get('/proxy-stream', (req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+  });
+
+  // Send initial data immediately
+  const sendInitialData = () => {
+    // Send userProxy data
+    if (fs.existsSync(USER_PROXY_PATH)) {
+      try {
+        const data = JSON.parse(fs.readFileSync(USER_PROXY_PATH, 'utf8'));
+        res.write(JSON.stringify({
+          type: 'userProxy',
+          messages: data.messages || []
+        }) + '\n');
+      } catch (error) {
+        console.error('Error reading userProxy:', error);
+      }
+    }
+
+    // Send FWD files data
+    const fwdAgents = ['chatgpt', 'cursor', 'copilot'];
+    fwdAgents.forEach(agent => {
+      const filePath = FWD_PATHS[agent];
+      if (fs.existsSync(filePath)) {
+        try {
+          const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+          res.write(JSON.stringify({
+            type: 'fwd',
+            agent: agent,
+            messages: data.messages || []
+          }) + '\n');
+        } catch (error) {
+          console.error(`Error reading FWD-${agent}:`, error);
+        }
+      }
+    });
+  };
+
+  sendInitialData();
+
+  const streamUpdate = (type, agent, filePath) => {
+    try {
+      if (fs.existsSync(filePath)) {
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        if (type === 'userProxy') {
+          res.write(JSON.stringify({
+            type: 'userProxy',
+            messages: data.messages || []
+          }) + '\n');
+        } else if (type === 'fwd') {
+          res.write(JSON.stringify({
+            type: 'fwd',
+            agent: agent,
+            messages: data.messages || []
+          }) + '\n');
+        }
+      }
+    } catch (error) {
+      console.error(`Error streaming ${type} ${agent || ''}:`, error);
+    }
+  };
+
+  // Watch for file changes
+  const watchFiles = () => {
+    // Watch userProxy.json
+    fs.watchFile(USER_PROXY_PATH, { interval: 1000 }, () => streamUpdate('userProxy', null, USER_PROXY_PATH));
+    
+    // Watch FWD files
+    fs.watchFile(FWD_PATHS.chatgpt, { interval: 1000 }, () => streamUpdate('fwd', 'chatgpt', FWD_PATHS.chatgpt));
+    fs.watchFile(FWD_PATHS.cursor, { interval: 1000 }, () => streamUpdate('fwd', 'cursor', FWD_PATHS.cursor));
+    fs.watchFile(FWD_PATHS.copilot, { interval: 1000 }, () => streamUpdate('fwd', 'copilot', FWD_PATHS.copilot));
+  };
+
+  watchFiles();
+
+  // Clean up on disconnect
+  req.on('close', () => {
+    fs.unwatchFile(USER_PROXY_PATH);
+    fs.unwatchFile(FWD_PATHS.chatgpt);
+    fs.unwatchFile(FWD_PATHS.cursor);
+    fs.unwatchFile(FWD_PATHS.copilot);
+  });
+});
+
 const AGENT_PATHS = {
   chatgpt: path.join(
     __dirname,
@@ -29,12 +201,12 @@ const AGENT_PATHS = {
 };
 
 const PROXY_PATHS = {
-  chatgpt: path.join(__dirname, "public", "ChatGPTRelay.json"),
-  cursor: path.join(__dirname, "public", "CursorRelay.json"),
-  copilot: path.join(__dirname, "public", "CopilotRelay.json"),
+  chatgpt: path.join(__dirname, "relay_data", "ChatGPTRelay.json"),
+  cursor: path.join(__dirname, "relay_data", "CursorRelay.json"),
+  copilot: path.join(__dirname, "relay_data", "CopilotRelay.json"),
 };
 
-const USER_PROXY_PATH = path.join(__dirname, "public", "userProxy.json");
+const USER_PROXY_PATH = path.join(__dirname, "relay_data", "userProxy.json");
 
 const FWD_PATHS = {
   chatgpt: path.join(__dirname, "public", "FWD-ChatGPT.json"),

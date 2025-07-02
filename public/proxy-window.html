@@ -193,6 +193,7 @@
       }
     </style>
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <script src="https://unpkg.com/oboe@2.1.7/dist/oboe-browser.min.js"></script>
   </head>
   <body>
     <div class="header">Agent Proxy Window</div>
@@ -313,6 +314,9 @@
             placeholder="User messages will appear here..."
             readonly
           ></textarea>
+          <div style="margin-top: 8px;">
+            <button id="debug-streaming" style="background: #4f46e5; color: white; padding: 4px 8px; border: none; border-radius: 4px; font-size: 12px; cursor: pointer;">🔄 Test Streaming</button>
+          </div>
         </div>
       </div>
     </div>
@@ -693,7 +697,7 @@
         // Function to write to Pxy files (destructive overwrite)
         async function writeToProxyFile(agent, message) {
           try {
-            // Send the raw message without any auto-formatting - let ReactMarkdown handle it
+            // Send the raw message without any auto-formatting
             const response = await fetch(
               "http://localhost:3001/write-proxy-message",
               {
@@ -722,43 +726,6 @@
           } catch (error) {
             console.error("Error writing to proxy file:", error);
             return false; // Failure
-          }
-        }
-
-        // Function to monitor userProxy.json for user messages
-        async function monitorUserMessages() {
-          try {
-            const response = await fetch(
-              `http://localhost:5173/userProxy.json?nocache=${Date.now()}`
-            );
-            if (response.ok) {
-              const data = await response.json();
-              console.log("Monitoring userProxy.json:", data);
-
-              if (data.messages && data.messages.length > 0) {
-                const latestMessage = data.messages[data.messages.length - 1];
-                console.log("Latest message:", latestMessage);
-                console.log("Target agent:", latestMessage.toAgent);
-
-                // Update the user text area with the message
-                userTextArea.value = latestMessage.message;
-
-                // Update the big bright agent display
-                updateUserStamp(latestMessage.toAgent);
-
-                // Auto-resize
-                userTextArea.style.height = "auto";
-                userTextArea.style.height = userTextArea.scrollHeight + "px";
-              } else {
-                console.log("No messages found in userProxy.json");
-                // Hide the stamp if no messages
-                userStamp.style.display = "none";
-              }
-            } else {
-              console.error("Failed to fetch userProxy.json:", response.status);
-            }
-          } catch (error) {
-            console.error("Error monitoring user messages:", error);
           }
         }
 
@@ -813,140 +780,108 @@
           console.log("User stamp updated and displayed");
         }
 
-        // Poll for user messages every 2 seconds
-        setInterval(monitorUserMessages, 2000);
-
-        // Make user stamp clickable for copying
-        userStamp.addEventListener("mouseenter", function () {
-          this.style.opacity = "0.7";
-        });
-
-        userStamp.addEventListener("mouseleave", function () {
-          this.style.opacity = "1";
-        });
-
-        userStamp.addEventListener("click", async function () {
-          const userText = userTextArea.value;
-
-          if (!userText || userText.trim() === "") {
-            // Temporarily change content to show "Empty"
-            const originalHtml = this.innerHTML;
-            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #ef4444; background: #3f1f1f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #ef4444; text-transform: uppercase; letter-spacing: 2px;">❌ EMPTY ❌</div>`;
-            setTimeout(() => {
-              this.innerHTML = originalHtml;
-            }, 1000);
-            return;
-          }
-
-          try {
-            await navigator.clipboard.writeText(userText);
-            // Temporarily change content to show "Copied!"
-            const originalHtml = this.innerHTML;
-            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #10b981; background: #1f3f2f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #10b981; text-transform: uppercase; letter-spacing: 2px;">✅ COPIED! ✅</div>`;
-            setTimeout(() => {
-              this.innerHTML = originalHtml;
-            }, 2000);
-          } catch (err) {
-            console.error("Failed to copy text: ", err);
-            // Temporarily change content to show "Failed"
-            const originalHtml = this.innerHTML;
-            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #ef4444; background: #3f1f1f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #ef4444; text-transform: uppercase; letter-spacing: 2px;">❌ FAILED ❌</div>`;
-            setTimeout(() => {
-              this.innerHTML = originalHtml;
-            }, 2000);
-          }
-        });
-
-        // Function to monitor FWD files for each agent
-        async function monitorFwdFiles() {
-          console.log("Monitoring FWD files...");
-          const agents = ["chatgpt", "cursor", "copilot"];
-
-          for (const agent of agents) {
-            try {
-              // Map agent names to correct file names
-              const fileNameMap = {
-                chatgpt: "ChatGPT",
-                cursor: "Cursor",
-                copilot: "Copilot",
-              };
-
-              const fileName = fileNameMap[agent];
-              const url = `http://localhost:5173/FWD-${fileName}.json?nocache=${Date.now()}`;
-              console.log(`Fetching: ${url}`);
-
-              const response = await fetch(url);
-
-              if (response.ok) {
-                const data = await response.json();
-                console.log(`Fetched data for ${agent}:`, data);
-
-                const fwdTextArea = document.getElementById(
-                  `fwd-${agent}-area`
-                );
-                console.log(`Text area for ${agent}:`, fwdTextArea);
-
-                if (!fwdTextArea) {
-                  console.error(
-                    `❌ Could not find textarea with id: fwd-${agent}-area`
-                  );
-                  continue;
-                }
-
-                if (data.messages && data.messages.length > 0) {
-                  const latestMessage = data.messages[data.messages.length - 1];
-                  console.log(
-                    `Setting message for ${agent}:`,
-                    latestMessage.message
-                  );
-
-                  // Add source prefix based on the From field
-                  let sourcePrefix = "";
-                  if (latestMessage.From) {
-                    // Map source agents to their emojis
-                    const sourceEmojis = {
-                      User: "👤",
-                      Cursor: "🤖",
-                      ChatGPT: "🧠",
-                      Copilot: "🛠️",
-                    };
-
-                    const sourceEmoji =
-                      sourceEmojis[latestMessage.From] || "❓";
-                    sourcePrefix = `${sourceEmoji}: `;
-                  }
-
-                  fwdTextArea.value = sourcePrefix + latestMessage.message;
-
-                  // Auto-resize
-                  fwdTextArea.style.height = "auto";
-                  fwdTextArea.style.height = fwdTextArea.scrollHeight + "px";
+        // Initialize oboe.js streaming for real-time updates
+        function initializeStreaming() {
+          console.log('🌊 Starting oboe.js proxy streaming...');
+          
+          oboe('http://localhost:3001/proxy-stream')
+            .node('*', function(data) {
+              console.log('📡 Received streaming data:', data);
+              
+              try {
+                if (data.type === 'userProxy') {
+                  console.log('🔔 Processing userProxy update:', data.messages);
+                  handleUserProxyUpdate(data.messages);
+                } else if (data.type === 'fwd') {
+                  console.log('🔔 Processing FWD update for', data.agent, ':', data.messages);
+                  handleFwdUpdate(data.agent, data.messages);
                 } else {
-                  console.log(`No messages for ${agent}, clearing textarea`);
-                  fwdTextArea.value = "";
+                  console.log('⚠️ Unknown data type:', data.type);
                 }
-              } else {
-                console.error(
-                  `Failed to fetch FWD-${agent}.json:`,
-                  response.status
-                );
+              } catch (error) {
+                console.error('❌ Error processing streaming data:', error);
               }
-            } catch (error) {
-              console.error(`Error monitoring FWD-${agent}.json:`, error);
-            }
+            })
+            .done(function() {
+              console.log('✅ Proxy streaming completed');
+            })
+            .fail(function(error) {
+              console.error('❌ Proxy streaming error:', error);
+              // Retry connection after 3 seconds
+              setTimeout(() => {
+                console.log('🔄 Retrying proxy streaming connection...');
+                initializeStreaming();
+              }, 3000);
+            });
+        }
+
+        // Handle userProxy.json updates
+        function handleUserProxyUpdate(messages) {
+          console.log("📨 UserProxy update:", messages);
+
+          if (messages && messages.length > 0) {
+            const latestMessage = messages[messages.length - 1];
+            console.log("Latest message:", latestMessage);
+            console.log("Target agent:", latestMessage.toAgent);
+
+            // Update the user text area with the message
+            userTextArea.value = latestMessage.message;
+
+            // Update the big bright agent display
+            updateUserStamp(latestMessage.toAgent);
+
+            // Auto-resize
+            userTextArea.style.height = "auto";
+            userTextArea.style.height = userTextArea.scrollHeight + "px";
+          } else {
+            console.log("No messages found in userProxy");
+            // Hide the stamp if no messages
+            userStamp.style.display = "none";
           }
         }
 
-        // Poll for FWD messages every 2 seconds
-        console.log("Setting up FWD monitoring interval...");
-        setInterval(() => {
-          console.log("FWD interval triggered - calling monitorFwdFiles()");
-          monitorFwdFiles();
-        }, 2000);
+        // Handle FWD file updates
+        function handleFwdUpdate(agent, messages) {
+          console.log(`📨 FWD update for ${agent}:`, messages);
 
-        // Call immediately for testing
-        console.log("Calling monitorFwdFiles() immediately...");
-        monitorFwdFiles();
+          const fwdTextArea = document.getElementById(`fwd-${agent}-area`);
+          if (!fwdTextArea) {
+            console.error(`❌ Could not find textarea with id: fwd-${agent}-area`);
+            return;
+          }
+
+          if (messages && messages.length > 0) {
+            const latestMessage = messages[messages.length - 1];
+            console.log(`Setting message for ${agent}:`, latestMessage.message);
+
+            // Add source prefix based on the From field
+            let sourcePrefix = "";
+            if (latestMessage.From) {
+              // Map source agents to their emojis
+              const sourceEmojis = {
+                User: "👤",
+                Cursor: "🤖",
+                ChatGPT: "🧠",
+                Copilot: "🛠️",
+              };
+
+              const sourceEmoji = sourceEmojis[latestMessage.From] || "❓";
+              sourcePrefix = `${sourceEmoji}: `;
+            }
+
+            fwdTextArea.value = sourcePrefix + latestMessage.message;
+
+            // Auto-resize
+            fwdTextArea.style.height = "auto";
+            fwdTextArea.style.height = fwdTextArea.scrollHeight + "px";
+          } else {
+            console.log(`No messages for ${agent}, clearing textarea`);
+            fwdTextArea.value = "";
+          }
+        }
+
+        // Start streaming immediately
+        initializeStreaming();
 
         // Copy button functionality for FWD boxes
         ["chatgpt", "cursor", "copilot"].forEach((agent) => {
@@ -999,6 +934,77 @@
               }, 2000);
             }
           });
+        });
+
+        // Make user stamp clickable for copying
+        userStamp.addEventListener("mouseenter", function () {
+          this.style.opacity = "0.7";
+        });
+
+        userStamp.addEventListener("mouseleave", function () {
+          this.style.opacity = "1";
+        });
+
+        userStamp.addEventListener("click", async function () {
+          const userText = userTextArea.value;
+
+          if (!userText || userText.trim() === "") {
+            // Temporarily change content to show "Empty"
+            const originalHtml = this.innerHTML;
+            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #ef4444; background: #3f1f1f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #ef4444; text-transform: uppercase; letter-spacing: 2px;">❌ EMPTY ❌</div>`;
+            setTimeout(() => {
+              this.innerHTML = originalHtml;
+            }, 1000);
+            return;
+          }
+
+          try {
+            await navigator.clipboard.writeText(userText);
+            // Temporarily change content to show "Copied!"
+            const originalHtml = this.innerHTML;
+            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #10b981; background: #1f3f2f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #10b981; text-transform: uppercase; letter-spacing: 2px;">✅ COPIED! ✅</div>`;
+            setTimeout(() => {
+              this.innerHTML = originalHtml;
+            }, 2000);
+          } catch (err) {
+            console.error("Failed to copy text: ", err);
+            // Temporarily change content to show "Failed"
+            const originalHtml = this.innerHTML;
+            this.innerHTML = `<div style="font-size: 24px; font-weight: bold; color: #ef4444; background: #3f1f1f; padding: 12px 20px; border-radius: 12px; text-align: center; border: 2px solid #ef4444; text-transform: uppercase; letter-spacing: 2px;">❌ FAILED ❌</div>`;
+            setTimeout(() => {
+              this.innerHTML = originalHtml;
+            }, 2000);
+          }
+        });
+
+        // Debug button for testing streaming
+        document.getElementById('debug-streaming').addEventListener('click', async () => {
+          console.log('🔄 Testing streaming manually...');
+          
+          // Write a test message to userProxy
+          const testData = {
+            agent: "cursor",
+            message: {
+              message: "Test streaming at " + new Date().toLocaleTimeString(),
+              toAgent: "cursor"
+            }
+          };
+          
+          try {
+            const response = await fetch('/write-user-proxy-message', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(testData)
+            });
+            
+            if (response.ok) {
+              console.log('✅ Test message sent, streaming should trigger');
+            } else {
+              console.error('❌ Failed to send test message');
+            }
+          } catch (error) {
+            console.error('❌ Error sending test message:', error);
+          }
         });
 
         console.log("Agent Proxy Window initialized");

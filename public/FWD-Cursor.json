@@ -1,9 +1,8 @@
 {
   "messages": [
     {
-      "timestamp": "2025-05-28T13:31:19.666Z",
-      "From": "Copilot",
-      "message": "forwarded",
+      "From": "User",
+      "message": "Test from curl streaming",
       "toAgent": "cursor"
     }
   ]

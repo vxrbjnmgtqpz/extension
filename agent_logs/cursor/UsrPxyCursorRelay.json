@@ -1,9 +1,5 @@
 {
   "messages": [
-    {
-      "timestamp": "2025-05-28T13:18:36.346Z",
-      "sender": "User",
-      "message": "CHECK"
-    }
+    "Latency test"
   ]
 }
