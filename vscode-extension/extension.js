@@ -4,10 +4,14 @@ const path = require("path");
 const { FileAccessBridge } = require("./fileAccessBridge");
 const { ChatGPTRelayMonitor } = require("./chatgptRelayMonitor");
 const { OboeStreamHandler } = require("./oboeStreamHandler");
+const {
+  DestructiveOverwriteHandler,
+} = require("./destructiveOverwriteHandler");
 
 let fileAccessBridge;
 let relayMonitor;
 let oboeHandler;
+let overwriteHandler;
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -26,6 +30,10 @@ function activate(context) {
   fileAccessBridge = new FileAccessBridge(workspaceRoot);
   relayMonitor = new ChatGPTRelayMonitor(workspaceRoot, fileAccessBridge);
   oboeHandler = new OboeStreamHandler(workspaceRoot);
+  overwriteHandler = new DestructiveOverwriteHandler(
+    workspaceRoot,
+    fileAccessBridge
+  );
 
   // Register commands
   const sendSelectionCommand = vscode.commands.registerCommand(
@@ -146,8 +154,7 @@ function sendCurrentFileToAgent() {
 }
 
 function applyLatestResponse() {
-  // TODO: Implement applying latest response from ChatGPT to current file
-  vscode.window.showInformationMessage("Apply response feature coming soon...");
+  overwriteHandler.applyWithConfirmation();
 }
 
 function toggleFileBridge() {
